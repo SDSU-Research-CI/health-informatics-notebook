@@ -24,7 +24,9 @@ RUN apt-get -y update \
 RUN wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" \
     -O /opt/vscode-latest.deb \
  && apt-get install -y /opt/vscode-latest.deb \
- && rm /opt/vscode-latest.deb
+ && rm /opt/vscode-latest.deb \
+ && echo -e "[Desktop Entry]\nName=Visual Studio Code\nComment=Code Editing. Redefined.\nGenericName=Text Editor\nExec=/usr/share/code/code --disable-dev-shm-usage --unity-launch %F\nIcon=vscode\nType=Application\nStartupNotify=false\nStartupWMClass=Code\nCategories=TextEditor;Development;IDE;\nMimeType=text/plain;inode/directory;application/x-code-workspace;\nActions=new-empty-window;\nKeywords=vscode;\n[Desktop Action new-empty-window]\nName=New Empty Window\nExec=/usr/share/code/code --disable-dev-shm-usage --new-window %F\nIcon=vscode"\
+    > /usr/share/applications/code.desktop
 
 # Download and install PyCharm
 RUN wget "https://download.jetbrains.com/python/pycharm-community-2023.2.1.tar.gz" \
