@@ -1,7 +1,22 @@
 FROM gitlab-registry.nrp-nautilus.io/prp/jupyter-stack/scipy:v1.3
 
-# Install packages via conda
-RUN conda install -y -c conda-forge -n base biopython pytest 
+# Install packages via conda (issues w/ deepvariant & pyseer)
+RUN mamba install -y -c conda-forge -n base biopython pytest \
+ && mamba install -y -c bioconda -n base \
+    fastp \
+    samtools \
+    bwa \
+    varscan \
+    bcftools \
+    mummer \
+    ensembl-vep \
+    goalign \
+    gotree \
+    modeltest-ng \
+    raxml-ng \
+    spades \
+    mafft \
+ && mamba install -y -c manics -n base websockify
 
 USER root
 
@@ -40,5 +55,5 @@ RUN wget "https://download.jetbrains.com/python/pycharm-community-2023.2.1.tar.g
 USER $NB_USER
 
 # Install Jupyter Desktop
-RUN /opt/conda/bin/conda install -c manics websockify
+# RUN /opt/conda/bin/conda install -c manics websockify
 RUN pip install jupyter-remote-desktop-proxy
