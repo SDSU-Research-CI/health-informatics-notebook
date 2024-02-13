@@ -1,4 +1,4 @@
-# Biopython Notebook
+# Health Informatics Notebook
 
 This Jupyter Notebook image contains the following software in addition to its base image:
 - biopython
