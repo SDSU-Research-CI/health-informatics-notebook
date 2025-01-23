@@ -21,6 +21,8 @@ RUN mamba install -y -c conda-forge -n base biopython pytest \
     trimmomatic \
     bowtie2 \
     pyseer \
+    clustalo \
+    clustalw \
  && mamba install -y -c manics -n base websockify
 
 USER root
