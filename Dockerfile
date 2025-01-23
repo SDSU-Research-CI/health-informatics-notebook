@@ -18,6 +18,9 @@ RUN mamba install -y -c conda-forge -n base biopython pytest \
     raxml-ng \
     spades \
     mafft \
+    trimmomatic \
+    bowtie2 \
+    pyseer \
  && mamba install -y -c manics -n base websockify
 
 USER root
