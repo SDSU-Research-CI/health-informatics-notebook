@@ -1,6 +1,8 @@
-ARG BASE_IMAGE=quay.io/jupyter/scipy-notebook:2024-07-29
+ARG BASE_IMAGE=quay.io/jupyter/scipy-notebook:2025-07-07
 
 FROM ${BASE_IMAGE}
+
+ARG PYCHARM_VERSION=2025.2.0.1
 
 # Install packages via conda (issues w/ deepvariant & pyseer)
 RUN mamba install -y -c conda-forge -n base biopython pytest \
@@ -53,12 +55,12 @@ RUN wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x
     > /usr/share/applications/code.desktop
 
 # Download and install PyCharm
-RUN wget "https://download.jetbrains.com/python/pycharm-community-2023.2.1.tar.gz" \
+RUN wget "https://download.jetbrains.com/python/pycharm-$PYCHARM_VERSION.tar.gz" \
     -O /opt/pycharm-latest.tar.gz \
  && tar xzf /opt/pycharm-latest.tar.gz -C /opt/ \
  && rm /opt/pycharm-latest.tar.gz \
  && touch /usr/share/applications/pycharm.desktop \
- && echo -e "[Desktop Entry]\nVersion = 2023.2.1\nType = Application\nTerminal = false\nName = PyCharm\nExec = /opt/pycharm-community-2023.2.1/bin/pycharm.sh\nIcon = /opt/pycharm-community-2023.2.1/bin/pycharm.png\nCategories = TextEditor;Development;IDE;" > /usr/share/applications/pycharm.desktop \
+ && echo -e "[Desktop Entry]\nVersion = $PYCHARM_VERSION\nType = Application\nTerminal = false\nName = PyCharm\nExec = /opt/pycharm-$PYCHARM_VERSION/bin/pycharm.sh\nIcon = /opt/pycharm-$PYCHARM_VERSION/bin/pycharm.png\nCategories = TextEditor;Development;IDE;" > /usr/share/applications/pycharm.desktop \
  && chmod +x /usr/share/applications/pycharm.desktop
 
 USER ${NB_USER}
